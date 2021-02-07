@@ -1,0 +1,65 @@
+matrix:
+  include:
+  - language: python
+    name: Compatibility Test (python 3.6)
+    python: 3.6
+    install:
+    - "./install.sh"
+    script:
+    - "./scan.sh"
+  - language: python
+    name: Compatibility Test (python 3.7)
+    python: 3.7
+    install:
+    - "./install.sh"
+    script:
+    - "./scan.sh"
+  - language: python
+    name: Compatibility Test (python 3.8)
+    python: 3.8
+    install:
+    - "./install.sh"
+    script:
+    - "./scan.sh"
+  - language: python
+    name: Compatibility Test (python 3.9)
+    python: 3.9
+    install:
+    - "./install.sh"
+    script:
+    - "./scan.sh"
+  - language: ruby
+    name: YAML Linting (rvm 2.7)
+    rvm: 2.7
+    before_install:
+    - git clone https://github.com/TravisToolbox/yaml-lint
+    install:
+    - "./yaml-lint/install.sh"
+    script:
+    - "./yaml-lint/scan.sh"
+  - language: bash
+    name: Shellcheck (Bash)
+    os: linux
+    arch: arm64-graviton2
+    before_install:
+    - git clone https://github.com/TravisToolbox/shellcheck
+    install:
+    - "./shellcheck/install.sh"
+    script:
+    - "./shellcheck/scan.sh"
+  - language: ruby
+    name: Link Checking (rvm 2.7)
+    rvm: 2.7
+    env:
+    - WHITELIST="https://img.shields.io"
+    - EXCLUDE_FILES="CHANGELOG.md"
+    before_install:
+    - git clone https://github.com/TravisToolbox/awesomebot
+    install:
+    - "./awesomebot/install.sh"
+    script:
+    - "./awesomebot/scan.sh"
+notifications:
+  email: false
+  slack:
+    secure: ulIlYoJGZDU0obTKSri6by3bObBXauA2lqBJiT33i2umobWI8myZzdfQ0sswI0z/t3lja8qttbkRVTTcrsLpazLSPcG2INEUQVSMl2W5t2pYNTH+cEO61CMxWfaAg5Z7OeZlt9f2O2xdqSZpnyfdarVAR/ZtDG6vopzARbxK3MZ2Wy9QaqiRdduN8K+4wm7+jstzdkYS0HBaqazRQoGLZ9H3U3EJE4Xbez9cIvXAZRB/Fx/TK6arcXZaFaB/VHvg+KiSA8UKHkV/jn7eJWY/EPUss5n5sMcPo9rzPRRyqjPrf57JM/n7XcISD7rmp83PsJhGaHAKFjmoliM19FM2W75Z2xPW0154IByJKENXMTNB6w1HPIq2BouL/GB8y2I564Bt+t5zYuEcDEfPYqu4WCz4A3IHoJ44qCuxou4VpOcGGWMTnhNK6TrNqhQCcYaxJ8BOMGc5hL3otxpQEuWyTw/kIQ4gtoKlVBC3qCwsXO0/4IqpGcV0jqTRL6W8kucfhUq8ECPRGTw3RcVaO+5HlZzVPU49aKTvcgVxBkbikMdiBZIJH6ZPWmR8qiDcDOCzXdZJT/XxWqXuh6tp9UmcO56vvjlCJHOVYamsJjK+cDSexNdTnUY3BwYzN630Ha0ykonzioIZAsPJWu56by3sv2SiXDyiUTc+fKMEG3mEMHo=
