@@ -27,34 +27,54 @@ BANNER="Scanning all python code with pycodestyle"
 # -------------------------------------------------------------------------------- #
 # Success                                                                          #
 # -------------------------------------------------------------------------------- #
-# UX - Show the user that the processing of a specific file was successful.        #
+# Show the user that the processing of a specific file was successful.             #
 # -------------------------------------------------------------------------------- #
-success()
+
+function success()
 {
-    printf ' [  \033[00;32mOK\033[0m  ] Processing successful for %s\n' "$1"
+    local message="${1:-}"
+
+    if [[ -n "${message}" ]]; then
+        printf ' [  \033[00;32mOK\033[0m  ] Processing successful for %s\n' "${message}"
+    fi
 }
 
 # -------------------------------------------------------------------------------- #
 # Fail                                                                             #
 # -------------------------------------------------------------------------------- #
-# UX - Show the user that the processing of a specific file failed and adjust the  #
+# Show the user that the processing of a specific file failed and adjust the       #
 # EXIT_VALUE to record this.                                                       #
 # -------------------------------------------------------------------------------- #
-fail()
+
+function fail()
 {
-    printf ' [ \033[0;31mFAIL\033[0m ] Processing failed for %s\n' "$1"
-    echo "$2"
+    local message="${1:-}"
+    local errors="${2:-}"
+
+    if [[ -n "${message}" ]]; then
+        printf ' [ \033[0;31mFAIL\033[0m ] Processing failed for %s\n' "${message}"
+    fi
+
+    if [[ -n "${errors}" ]]; then
+        echo "${errors}"
+    fi
+
     EXIT_VALUE=1
 }
 
 # -------------------------------------------------------------------------------- #
 # Skip                                                                             #
 # -------------------------------------------------------------------------------- #
-# UX - Show the user that the processing of a specific file was skipped.           #
+# Show the user that the processing of a specific file was skipped.                #
 # -------------------------------------------------------------------------------- #
-skip()
+
+function skip()
 {
-    printf ' [ \033[00;36mSkip\033[0m ] Skipping %s\n' "$1"
+    local message="${1:-}"
+
+    if [[ -n "${message}" ]]; then
+        printf ' [ \033[00;36mSkip\033[0m ] Skipping %s\n' "${message}"
+    fi
 }
 
 # -------------------------------------------------------------------------------- #
@@ -62,7 +82,8 @@ skip()
 # -------------------------------------------------------------------------------- #
 # Check a specific file.                                                           #
 # -------------------------------------------------------------------------------- #
-check()
+
+function check()
 {
     local filename="$1"
     local errors
@@ -79,7 +100,8 @@ check()
 # -------------------------------------------------------------------------------- #
 # Locate all of the relevant files within the repo and process compatible ones.    #
 # -------------------------------------------------------------------------------- #
-scan_files()
+
+function scan_files()
 {
     echo "${BANNER}"
 

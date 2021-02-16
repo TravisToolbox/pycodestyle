@@ -14,7 +14,8 @@ set -eo pipefail
 # -------------------------------------------------------------------------------- #
 # Find any 'requirements.txt' files within the repository.                         #
 # -------------------------------------------------------------------------------- #
-find_requirements()
+
+function find_requirements
 {
     git ls-files | grep -E 'requirements.txt'
 }
@@ -24,7 +25,8 @@ find_requirements()
 # -------------------------------------------------------------------------------- #
 # Run a pip install -r for all reqrements files located.                           #
 # -------------------------------------------------------------------------------- #
-install_all_requirements()
+
+function install_all_requirements
 {
     echo 'Installing all requirements'
 
