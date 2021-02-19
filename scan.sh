@@ -112,7 +112,7 @@ function scan_files()
         elif [[ "${filename}" =~ ${FILE_NAME_SEARCH_PATTERN} ]]; then
             check "${filename}"
         fi
-    done < <(git ls-files)
+    done < <(git ls-files | sort -V)
 
     exit $EXIT_VALUE
 }
